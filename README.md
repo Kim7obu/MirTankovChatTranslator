@@ -113,6 +113,10 @@ JSON은 바이트코드에 직접 넣은 상수보다 초기 1회 로딩 비용�
 - `izeberg.modssettingsapi_1.7.0` 템플릿 API 기준
 - 오프라인 통합·회귀 테스트 14개
 
+===
+
+# English
+
 ## Prerequisites
 
 **As of September 6, 2026, targeting Mir Tankov version 1.45, `izeberg.modssettingsapi_1.7.0` is strictly required for this mod to function.** You can obtain this dependency from [IzeBerg/modssettingsapi](https://github.com/izeberg/modssettingsapi). Please use the [1.7.0 Release](https://github.com/izeberg/modssettingsapi/releases/tag/1.7.0).
