@@ -2,6 +2,15 @@
 
 Mir Tankov(Мир танков) 전투 채팅의 러시아어를 자동으로 한국어 또는 영어로 번역하여 원문 아래에 표시하는 MTMOD입니다.
 
+https://github.com/user-attachments/assets/d30bd9c1-c26d-4c71-8554-0645bd8ba36a
+Sample Video (Full Video: https://youtu.be/jaIe-GtVuGI)
+
+<img width="934" height="431" alt="shot_024" src="https://github.com/user-attachments/assets/d606f90c-df04-489c-874e-3f693763a61f" />
+FIG 1. 한글 설정창 / Mod setting page, Korean
+
+<img width="322" height="128" alt="image" src="https://github.com/user-attachments/assets/d96c6c44-a8d7-4ef0-b963-aff9436e664b" />
+FIG 2. 실제 번역 이미지 / In-game Translation Example, Korean
+
 ## 필수 요구 사항
 
 **2026년 9월 6일, 게임 버전 1.45 기준으로 `izeberg.modssettingsapi_1.7.0`가 있어야 무조건 동작합니다.** 해당 모드는 [IzeBerg/modssettingsapi](https://github.com/izeberg/modssettingsapi)에서 받을 수 있습니다. 배포판은 [1.7.0 릴리스](https://github.com/izeberg/modssettingsapi/releases/tag/1.7.0)를 사용하세요.
