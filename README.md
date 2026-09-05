@@ -113,14 +113,115 @@ JSON은 바이트코드에 직접 넣은 상수보다 초기 1회 로딩 비용�
 - `izeberg.modssettingsapi_1.7.0` 템플릿 API 기준
 - 오프라인 통합·회귀 테스트 14개
 
-## English
+## Prerequisites
 
-This MTMOD translates Russian Mir Tankov battle chat into Korean or English and shows the result on the local client. Choose exactly one package: the KO build has a Korean settings UI and defaults to Korean output; the EN build has an English settings UI and defaults to English output.
+**As of September 6, 2026, targeting Mir Tankov version 1.45, `izeberg.modssettingsapi_1.7.0` is strictly required for this mod to function.** You can obtain this dependency from [IzeBerg/modssettingsapi](https://github.com/izeberg/modssettingsapi). Please use the [1.7.0 Release](https://github.com/izeberg/modssettingsapi/releases/tag/1.7.0).
 
-As of **6 September 2026**, this build targets Mir Tankov **1.45** and requires **izeberg.modssettingsapi 1.7.0**, available from [IzeBerg/modssettingsapi](https://github.com/izeberg/modssettingsapi). Korean output also requires a Korean font/localisation patch.
+Displaying Korean translation output requires a Korean font patch (`fonts_ko.swf`, etc.). Users without a Korean localization patch should select English translation output in the settings. An active internet connection is also required.
 
-The embedded `preserve_dictionary.json` is loaded once at startup. Terms listed in `preserveTerms` are never translated: a term-only message is passed through unchanged, while terms inside a longer Russian sentence are masked before the request and restored exactly afterward. To update it, extract the MTMOD, edit only the JSON, rebuild the complete archive with `meta.xml` and `res/` at its root, rename it to `.mtmod`, replace the installed package, and restart the game.
+---
 
+## Package Files
+
+- `Korean_UI/mod_TonymocchiChatTranslator_KO.mtmod`: Korean settings UI, defaults to Korean translation.
+- `English_UI/mod_TonymocchiChatTranslator_EN.mtmod`: English settings UI, defaults to English translation.
+- `Source/mod_TonymocchiChatTranslator_KO.py`: Uncompiled source for the Korean UI build.
+- `Source/mod_TonymocchiChatTranslator_EN.py`: Uncompiled source for the English UI build.
+- `Config/preserve_dictionary.json`: Source file of the JSON preserve dictionary bundled in the MTMOD.
+
+> **Note:** Do **NOT** install both MTMOD files simultaneously. Select only one package based on your preferred UI language. Both versions allow you to switch the target translation output between Korean and English inside the mod settings.
+
+---
+
+## Installation
+
+1. Remove any previous versions of `mod_*ChatTranslator.py`, `.pyc`, or `.mtmod` from `mods/` or `res_mods/` to avoid conflicts.
+2. Install `izeberg.modssettingsapi_1.7.0`.
+3. Place either the KO or EN `.mtmod` file into your current Mir Tankov client version directory: `mods/<current client version>/`.
+4. Relaunch the game client completely.
+5. Configure translation language, chat channels (Allies/Enemies/Self), display format, colors, and translation engines in the mod settings menu.
+
+---
+
+## JSON Preserve Dictionary
+
+**Terms registered in the preserve dictionary are retained as-is without sending requests to translation APIs.**
+
+Internal path:
+```text
+res/scripts/client/gui/mods/TonymocchiChatTranslator/preserve_dictionary.json
+```
+
+### Examples
+
+| Input | Output |
+|---|---|
+| `ИС-7` | Displayed directly as `ИС-7` without calling the API |
+| `ИС-7 поехал в город` | `ИС-7` is preserved; the rest of the Russian sentence is translated |
+| `Объект 140!` | Original term preserved based on case/punctuation matching settings |
+
+### Configurable JSON Keys
+
+| Key | Default | Description |
+|---|---:|---|
+| `enabled` | `true` | Enables/disables the preserve dictionary |
+| `caseInsensitive` | `true` | Case-insensitive matching while preserving original casing in output |
+| `normalizeYo` | `true` | Treats Russian `е` and `ё` as equivalent during matching |
+| `matchWholeWords` | `true` | Prevents accidental partial matching inside longer words |
+| `preserveTerms` | Array | List of terms, vehicle names, and proper nouns to exclude from translation |
+
+### Updating the JSON Dictionary
+
+To update the dictionary, extract the MTMOD package, edit the JSON contents, re-pack the entire structure back into an MTMOD file, and reuse it.
+
+1. Open the `.mtmod` file as a ZIP archive.
+2. Edit `preserve_dictionary.json` at the path above using UTF-8 encoding.
+3. Re-compress the entire package so that `meta.xml` and `res/` remain at the root of the ZIP structure. *(Placing them inside a subfolder will break mod loading).*
+4. Rename the extension back to `.mtmod`, overwrite the existing package in your `mods/` directory, and restart the game.
+
+> **Note:** The dictionary is parsed only once at game startup. Changes will not apply dynamically in-game until the client is restarted with the updated MTMOD.
+
+---
+
+## Performance Architecture
+
+- **Single Parsing:** Parsed once at startup rather than reading the JSON file on every chat line.
+- **O(1) Full Matching:** Full-sentence matches are checked in average O(1) time via `frozenset` hash lookup.
+- **Precompiled Regex:** In-sentence term masking utilizes regex compiled at startup, prioritized by term length.
+- **Revision Invalidation:** Dictionary modifications update the revision hash, automatically invalidating stale translation caches generated under previous rules.
+- **Instant Response:** Local slang rules and cached entries return immediate responses without network calls.
+- **Thread Pool & Deduplication:** Up to 4 worker threads independently process distinct chat bursts, while identical concurrent messages are merged into a single HTTP request and distributed to all matching chat lines.
+
+---
+
+## Features
+
+- Conservative detection logic ensuring only Russian chat messages are translated.
+- Excludes non-Russian Cyrillic scripts as well as standard English and Korean.
+- Ignores default tactical pings and radio commands.
+- Defaults to displaying the original chat alongside the translated line.
+- Ensures all rapid consecutive chat lines are rendered without dropping messages.
+- Converts Russian laughter (e.g., `ахах`, `ахахахх`) locally into repeated English `ha` or Korean `ㅋ` without API calls.
+- Sentence caches persist across sessions via `mods/Tonymocchi_chat_translator/cache.json`.
+- Duplicate mod installations are safely handled: only the first loaded instance operates, logging paths of ignored duplicates.
+- Unused non-functional test UI elements have been removed.
+
+---
+
+## Translation Engines & Notes
+
+Auto mode sequentially queries keyless APIs: **Google**, **Google Secondary**, **Lingva**, and **MyMemory**. While these services do not require API keys, they are third-party services and do not guarantee unlimited uptime or SLA. If an engine fails, Auto mode seamlessly shifts to the next available provider.
+
+Original chat messages display instantly, ensuring chat visibility remains unaffected during API outages. Debug logs are written to `mods/Tonymocchi_chat_translator/mod.log`.
+
+---
+
+## Verification Environment
+
+- Tested against Mir Tankov 1.45 client chat class structures.
+- CPython 2.7.18 PYC (`03 f3 0d 0a` magic).
+- `izeberg.modssettingsapi_1.7.0` template API contract.
+- Validated with 14 offline integration and regression tests.
 ## Version history
 
 ### 1.5.0
