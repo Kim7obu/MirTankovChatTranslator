@@ -7,9 +7,11 @@ https://github.com/user-attachments/assets/d30bd9c1-c26d-4c71-8554-0645bd8ba36a
 Sample Video (Full Video: https://youtu.be/jaIe-GtVuGI)
 
 <img width="934" height="431" alt="shot_024" src="https://github.com/user-attachments/assets/d606f90c-df04-489c-874e-3f693763a61f" />
+
 FIG 1. 한글 설정창 / Mod setting page, Korean
 
 <img width="322" height="128" alt="image" src="https://github.com/user-attachments/assets/d96c6c44-a8d7-4ef0-b963-aff9436e664b" />
+
 FIG 2. 실제 번역 이미지 / In-game Translation Example, Korean
 
 ## 필수 요구 사항
