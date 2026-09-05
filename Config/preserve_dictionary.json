@@ -1,0 +1,32 @@
+{
+  "_comment_ko": "preserveTerms에 등록한 단어는 번역하지 않고 입력된 모양 그대로 출력합니다. 문장 안에 포함된 경우에도 그 부분만 보호합니다. 수정 후 MTMOD 전체를 다시 압축하고 게임을 재시작하세요.",
+  "_comment_en": "Terms listed in preserveTerms are never translated and keep their exact original spelling. They are protected even inside a longer sentence. Rebuild the complete MTMOD and restart the game after editing.",
+  "version": 1,
+  "settings": {
+    "enabled": true,
+    "caseInsensitive": true,
+    "normalizeYo": true,
+    "matchWholeWords": true
+  },
+  "preserveTerms": [
+    "World of Tanks",
+    "Mir Tankov",
+    "Мир танков",
+    "Lesta Games",
+    "Wargaming",
+    "Discord",
+    "YouTube",
+    "Twitch",
+    "M48 Patton",
+    "Concept 5",
+    "FV4005",
+    "Jg.Pz. E 100",
+    "T57 Heavy",
+    "T-62A",
+    "ИС-7",
+    "Е 100",
+    "Объект 140",
+    "Объект 260",
+    "Tornado"
+  ]
+}
