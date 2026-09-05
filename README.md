@@ -3,6 +3,7 @@
 Mir Tankov(Мир танков) 전투 채팅의 러시아어를 자동으로 한국어 또는 영어로 번역하여 원문 아래에 표시하는 MTMOD입니다.
 
 https://github.com/user-attachments/assets/d30bd9c1-c26d-4c71-8554-0645bd8ba36a
+
 Sample Video (Full Video: https://youtu.be/jaIe-GtVuGI)
 
 <img width="934" height="431" alt="shot_024" src="https://github.com/user-attachments/assets/d606f90c-df04-489c-874e-3f693763a61f" />
