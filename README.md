@@ -2,6 +2,10 @@
 
 Mir Tankov(Мир танков) 전투 채팅의 러시아어를 자동으로 한국어 또는 영어로 번역하여 원문 아래에 표시하는 MTMOD입니다.
 
+아시아 버전(World of Tanks Asia)은 해당 링크를 참조하십시오: https://github.com/Kim7obu/WOTChatTranslator
+
+World of Tanks ASIA version: https://github.com/Kim7obu/WOTChatTranslator (only support Korean, but you can edit the final output language as you want. Just notice the credit and licence.)
+
 https://github.com/user-attachments/assets/d30bd9c1-c26d-4c71-8554-0645bd8ba36a
 
 Sample Video (Full Video: https://youtu.be/jaIe-GtVuGI)
