@@ -56,9 +56,9 @@ FIG 2. 실제 번역 이미지 / In-game Translation Example, Korean
 5. 모드 설정에서 번역 언어, 아군/적군/본인 채팅, 표시 방식, 색상,
    번역 엔진을 선택합니다.
 
-## v1.5.x에서 업데이트
+## v1.5에서 업데이트
 
-이번에는 **JSON만 교체하면 안 됩니다.** v1.5.x PYC는 새
+이번에는 **JSON만 교체하면 안 됩니다.** v1.5 PYC는 새
 `translateTerms` 구조를 해석하지 못하므로 KO 또는 EN MTMOD 하나를 통째로
 교체해야 합니다.
 
